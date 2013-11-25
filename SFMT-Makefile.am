@@ -2,8 +2,5 @@ MEXP = 19937
 AM_TARGET_ARCH = -msse2
 AM_CFLAGS = -O3
 AM_CPPFLAGS = -Wall -Wextra -fno-strict-aliasing -DNDEBUG -DSFMT_MEXP=$(MEXP)
-
-include_HEADERS = SFMT.h
-
 lib_LIBRARIES = libisfmt.a
 libisfmt_a_SOURCES = SFMT.c SFMT.h SFMT-common.h SFMT-params.h SFMT-params$(MEXP).h
