@@ -1,3 +1,8 @@
+MEXP = 19937
+AM_CPPFLAGS = -Wall -Wextra -fno-strict-aliasing -DNDEBUG -DHAVE_SSE2 -DSFMT_MEXP=$(MEXP) -DDSFMT_MEXP=$(MEXP)
+AM_CFLAGS = -O3 -msse2
+export MEXP AM_CPPFLAGS AM_CFLAGS
+export CFLAGS
 SUBDIRS = SFMT-src-1.4 dSFMT-src-2.2.2
 include_HEADERS = SFMT-src-1.4/SFMT.h dSFMT-src-2.2.2/dSFMT.h
 lib_LIBRARIES = libsfmt.a

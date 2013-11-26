@@ -1,16 +1,18 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
+AC_INIT([SFMT-installer], m4_esyscmd([hg identify --num -r . | tr -d '\n']))
+AC_REVISION(m4_esyscmd([hg identify --num -r . | tr -d '\n']))
 AC_PREREQ([2.68])
-AC_INIT(SFMT-installer, 0.1, heavywatal@bitbucket)
 AM_INIT_AUTOMAKE([foreign -Wall -Werror])
 AC_CONFIG_SRCDIR([config.h.in])
 AC_CONFIG_HEADERS([config.h])
 
-CFLAGS=''
-
 # Checks for programs.
+CFLAGS_USER=${CFLAGS}
+CFLAGS=''
 AC_PROG_CC
+CFLAGS=${CFLAGS_USER}
 AC_PROG_MAKE_SET
 AM_PROG_AR
 AC_PROG_RANLIB

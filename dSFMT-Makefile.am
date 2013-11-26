@@ -1,6 +1,2 @@
-MEXP = 19937
-AM_TARGET_ARCH = -msse2
-AM_CFLAGS = -O3
-AM_CPPFLAGS = -Wall -Wextra -fno-strict-aliasing -DNDEBUG -DDSFMT_MEXP=$(MEXP)
-lib_LIBRARIES = libdsfmt.a
+noinst_LIBRARIES = libdsfmt.a
 libdsfmt_a_SOURCES = dSFMT.c dSFMT.h dSFMT-common.h dSFMT-params.h dSFMT-params$(MEXP).h
