@@ -5,11 +5,6 @@ Makefile$
 ^aclocal\.m4$
 ^autom4te\.cache
 ^autoscan.log$
-^ar-lib$
-^config\.
+^config\.(h|log|status)$
 ^configure.scan$
-^compile$
-^depcomp$
-^install-sh$
-^missing$
 ^stamp-h1$
