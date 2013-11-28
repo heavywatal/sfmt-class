@@ -1,2 +1,3 @@
 noinst_LIBRARIES = libdsfmt.a
 libdsfmt_a_SOURCES = dSFMT.c dSFMT.h dSFMT-common.h dSFMT-params.h dSFMT-params$(MEXP).h
+include_HEADERS = dSFMT.h

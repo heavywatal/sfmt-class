@@ -1,5 +1,5 @@
 syntax: regexp
-SFMT-src.*
+SFMT-src.*(h|c|o|txt|html|csv|awk)$
 ^.deps
 Makefile$
 ^aclocal\.m4$
