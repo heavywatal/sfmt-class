@@ -2,13 +2,11 @@ syntax: regexp
 SFMT-src.*
 ^.deps
 Makefile$
-Makefile.in$
 ^aclocal\.m4$
 ^autom4te\.cache
 ^autoscan.log$
 ^ar-lib$
 ^config\.
-^configure$
 ^configure.scan$
 ^compile$
 ^depcomp$
