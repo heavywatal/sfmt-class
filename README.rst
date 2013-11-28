@@ -24,11 +24,9 @@ Then, build and install::
 Usage
 --------------------------------------------------------------------------------
 
-.. literalinclude:: example.cpp
+See :file:`example.cpp`::
 
-build and run::
-
-   % clang++ -lsfmt main.cpp
+   % clang++ -lsfmt example.cpp
    % ./a.out
    0.454631
    3501832039   
