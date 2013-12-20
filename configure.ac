@@ -30,6 +30,6 @@ AC_TYPE_UINT64_T
 AC_CHECK_FUNCS([memset sqrt])
 
 AC_CONFIG_FILES([Makefile
-                 SFMT-src-1.4/Makefile
-                 dSFMT-src-2.2.2/Makefile])
+                 SFMT-src-1.4.1/Makefile
+                 dSFMT-src-2.2.3/Makefile])
 AC_OUTPUT
