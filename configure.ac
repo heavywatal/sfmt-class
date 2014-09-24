@@ -1,7 +1,7 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-AC_INIT([SFMT-installer], m4_esyscmd([hg identify --num -r . | tr -d '\n']))
+AC_INIT([SFMT-installer], m4_esyscmd([git describe --tags | tr -d '\n']))
 AC_PREREQ([2.68])
 AM_INIT_AUTOMAKE([foreign -Wall -Werror])
 AC_CONFIG_SRCDIR([config.h.in])

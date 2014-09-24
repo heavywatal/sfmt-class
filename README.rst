@@ -12,9 +12,12 @@ http://www.math.sci.hiroshima-u.ac.jp/~%20m-mat/MT/SFMT/index.html
 Installation
 --------------------------------------------------------------------------------
 
-First, download the source files::
+If you are building from the latest development version from github,
+you need to run ``get_source.sh`` and **autotools**
+to get the SFMT source files and ``configure`` script::
 
    ./get_source.sh
+   autoreconf -i
 
 Then, build and install::
 
