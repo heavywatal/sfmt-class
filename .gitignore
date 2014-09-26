@@ -18,4 +18,5 @@ install-sh
 missing
 stamp-h1
 
+lib*.a
 sfmt-installer-*.tar.gz
