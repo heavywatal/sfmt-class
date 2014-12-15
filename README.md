@@ -38,3 +38,6 @@ See ``example.cpp``
 0.454631
 3501832039
 ```
+
+A wrapper class `wtl::sfmt19937` is available at `prandom.hpp` in my [cxxwtils](https://github.com/heavywatal/cxxwtils).
+It is compatible with `std::*_distribution` in `<random>` and can be used just like `std::mt19937`.
