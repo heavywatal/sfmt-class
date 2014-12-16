@@ -7,4 +7,4 @@ SUBDIRS = SFMT-src-1.4.1 dSFMT-src-2.2.3
 lib_LIBRARIES = libsfmt.a
 libsfmt_a_SOURCES =
 libsfmt_a_LIBADD = SFMT-src-1.4.1/SFMT.o dSFMT-src-2.2.3/dSFMT.o
-EXTRA_DIST = README.rst
+EXTRA_DIST = README.md
