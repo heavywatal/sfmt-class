@@ -3,9 +3,10 @@
 
 AC_INIT([SFMT-installer], m4_esyscmd([git describe --tags | tr -d '\n']))
 AC_PREREQ([2.68])
-AM_INIT_AUTOMAKE([foreign -Wall -Werror])
+AM_INIT_AUTOMAKE([foreign subdir-objects -Wall -Werror])
 AC_CONFIG_SRCDIR([config.h.in])
 AC_CONFIG_HEADERS([config.h])
+AC_CONFIG_MACRO_DIR([m4])
 
 # Checks for programs.
 CFLAGS_USER=${CFLAGS}
@@ -14,7 +15,7 @@ AC_PROG_CC
 CFLAGS=${CFLAGS_USER}
 AC_PROG_MAKE_SET
 AM_PROG_AR
-AC_PROG_RANLIB
+LT_INIT
 
 # Checks for libraries.
 

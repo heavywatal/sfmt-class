@@ -2,6 +2,16 @@ SFMT-src*/*
 dSFMT-src*/*
 !Makefile.am
 
+lib*.a
+lib*.la
+lib*.lai
+lib*.dylib
+sfmt-installer-*.tar.gz
+
+libtool
+ltmain.sh
+m4/
+
 .deps
 Makefile
 Makefile.in
@@ -17,6 +27,3 @@ depcomp
 install-sh
 missing
 stamp-h1
-
-lib*.a
-sfmt-installer-*.tar.gz
