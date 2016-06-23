@@ -1,6 +1,7 @@
 MEXP = 19937
 AM_CPPFLAGS = -Wall -Wextra -fno-strict-aliasing -DNDEBUG -DHAVE_SSE2 -DSFMT_MEXP=$(MEXP) -DDSFMT_MEXP=$(MEXP)
 AM_CFLAGS = -O3 -msse2
+AM_LDFLAGS = -avoid-version
 ACLOCAL_AMFLAGS = -I m4
 export MEXP AM_CPPFLAGS AM_CFLAGS
 export CFLAGS
