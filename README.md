@@ -13,17 +13,19 @@ Installation
 Download and extract [released archive](https://github.com/heavywatal/sfmt-installer/releases)
 
 ```
-% ./configure
+% ./configure --prefix=${HOME}/local
 % make
-% sudo make install
+% make install
 ```
 
 If you are building the latest development version from github,
-you need to run ``get_source.sh`` and **autotools**
+you need to initiate submodules and run **autotools**
 to get the SFMT source files and ``configure`` script
 
 ```
-% ./get_source.sh
+% git clone https://github.com/heavywatal/sfmt-installer.git
+% cd sfmt-installer/
+% git submodule update --init
 % autoreconf -i
 ```
 
