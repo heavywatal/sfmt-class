@@ -1,0 +1,7 @@
+[submodule "SFMT"]
+	path = SFMT
+	url = https://github.com/heavywatal/SFMT.git
+	branch = sse2-params
+[submodule "dSFMT"]
+	path = dSFMT
+	url = https://github.com/MersenneTwister-Lab/dSFMT.git
