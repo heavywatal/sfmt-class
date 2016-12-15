@@ -5,10 +5,12 @@ AM_LDFLAGS = -avoid-version
 ACLOCAL_AMFLAGS = -I m4
 export MEXP AM_CPPFLAGS AM_CFLAGS
 export CFLAGS
-SUBDIRS = SFMT-src-1.4.1 dSFMT-src-2.2.3
 lib_LIBRARIES = libsfmt.a
 lib_LTLIBRARIES = libsfmt.la
-libsfmt_a_SOURCES = SFMT-src-1.4.1/SFMT.c dSFMT-src-2.2.3/dSFMT.c
-libsfmt_la_SOURCES = SFMT-src-1.4.1/SFMT.c dSFMT-src-2.2.3/dSFMT.c
+libsfmt_a_SOURCES = SFMT/SFMT.c dSFMT/dSFMT.c
+libsfmt_la_SOURCES = SFMT/SFMT.c dSFMT/dSFMT.c
 libsfmt_la_CFLAGS = $(AM_CFLAGS) -fPIC
-EXTRA_DIST = README.md
+include_HEADERS = SFMT/SFMT.h SFMT/SFMT-params.h SFMT/SFMT-params$(MEXP).h dSFMT/dSFMT.h
+EXTRA_DIST = README.md\
+ SFMT/CHANGE-LOG.txt SFMT/FILES.txt SFMT/LICENSE.txt SFMT/README.txt\
+ dSFMT/CHANGE-LOG.txt dSFMT/FILES.txt dSFMT/LICENSE.txt dSFMT/README.txt
