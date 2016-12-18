@@ -4,18 +4,15 @@
 #define WTL_SFMT_HPP_
 
 #include <random>
-#include <limits> // numeric_limits
+#include <limits>
 
 #define HAVE_SSE2
 #define SFMT_MEXP 19937
-#include <SFMT.h>
+#include "SFMT/SFMT.h"
 
 /////////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
 namespace wtl {
 /////////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
-
-/////////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
-// Generators
 
 class sfmt19937 {
   public:

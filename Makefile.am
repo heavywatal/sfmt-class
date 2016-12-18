@@ -10,7 +10,13 @@ lib_LTLIBRARIES = libsfmt.la
 libsfmt_a_SOURCES = SFMT/SFMT.c dSFMT/dSFMT.c
 libsfmt_la_SOURCES = SFMT/SFMT.c dSFMT/dSFMT.c
 libsfmt_la_CFLAGS = $(AM_CFLAGS) -fPIC
-include_HEADERS = SFMT/SFMT.h SFMT/SFMT-params.h SFMT/SFMT-params$(MEXP).h dSFMT/dSFMT.h
-EXTRA_DIST = README.md\
+nobase_include_HEADERS = SFMT/SFMT.h SFMT/SFMT-params.h SFMT/SFMT-params$(MEXP).h dSFMT/dSFMT.h sfmt.hpp
+EXTRA_DIST = README.md example.cpp\
  SFMT/CHANGE-LOG.txt SFMT/FILES.txt SFMT/LICENSE.txt SFMT/README.txt\
  dSFMT/CHANGE-LOG.txt dSFMT/FILES.txt dSFMT/LICENSE.txt dSFMT/README.txt
+
+example: a.out
+	./$<
+
+a.out: example.cpp
+	$(CXX) -O3 -std=c++14 -Wall -I$(includedir) $< -L$(libdir) -lsfmt -o $@
