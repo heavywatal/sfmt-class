@@ -3,7 +3,6 @@
 #ifndef WTL_SFMT_HPP_
 #define WTL_SFMT_HPP_
 
-#include <random>
 #include <limits>
 
 #define HAVE_SSE2
@@ -51,28 +50,6 @@ class sfmt19937 {
   private:
     state_type state_;
 };
-
-
-/////////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
-// Global definition/declaration
-
-namespace detail {
-    template <class T> class Holder {
-      public:
-        T& operator()(void) {return instance_;}
-      private:
-        static T instance_;
-    };
-    template <class T> T Holder<T>::instance_(std::random_device{}());
-} // namespace detail
-
-inline std::mt19937& mt() {
-    return wtl::detail::Holder<std::mt19937>{}();
-}
-
-inline sfmt19937& sfmt() {
-    return wtl::detail::Holder<sfmt19937>{}();
-}
 
 /////////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
 } // namespace wtl

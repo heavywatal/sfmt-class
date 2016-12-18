@@ -1,12 +1,14 @@
-SFMT-src*/*
-dSFMT-src*/*
 !Makefile.am
+!configure.ac
 
+a.out
+*.o
+*.lo
 lib*.a
 lib*.la
 lib*.lai
 lib*.dylib
-sfmt-installer-*.tar.gz
+sfmt-*.tar.gz
 
 libtool
 ltmain.sh
