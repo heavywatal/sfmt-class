@@ -1,6 +1,7 @@
-## SFMT-installer
+## SFMT-class
 
-This is an unofficial installer of SFMT and dSFMT for C/C++.
+This is an unofficial wrapper of SFMT for C++.
+It can also be used as a simple installer of SFMT and dSFMT for C/C++.
 SFMT is a new variant of Mersenne Twister (MT) introduced by Mutsuo Saito and Makoto Matsumoto.
 
 http://www.math.sci.hiroshima-u.ac.jp/~%20m-mat/MT/SFMT/index.html
@@ -8,7 +9,7 @@ http://www.math.sci.hiroshima-u.ac.jp/~%20m-mat/MT/SFMT/index.html
 
 ### Installation
 
-Download and extract [released archive](https://github.com/heavywatal/sfmt-installer/releases)
+Download and extract [released archive](https://github.com/heavywatal/sfmt-class/releases)
 
 ```sh
 % ./configure --prefix=${HOME}/local
@@ -21,8 +22,8 @@ you need to initiate submodules and run **autotools**
 to get the SFMT source files and ``configure`` script
 
 ```sh
-% git clone https://github.com/heavywatal/sfmt-installer.git
-% cd sfmt-installer/
+% git clone https://github.com/heavywatal/sfmt-class.git
+% cd sfmt-class/
 % git submodule update --init
 % autoreconf -i
 ```
