@@ -11,7 +11,7 @@ libsfmt_a_SOURCES = SFMT/SFMT.c dSFMT/dSFMT.c
 libsfmt_la_SOURCES = SFMT/SFMT.c dSFMT/dSFMT.c
 libsfmt_la_CFLAGS = $(AM_CFLAGS) -fPIC
 nobase_include_HEADERS = SFMT/SFMT.h SFMT/SFMT-params.h SFMT/SFMT-params$(MEXP).h dSFMT/dSFMT.h sfmt.hpp
-EXTRA_DIST = README.md example.cpp\
+EXTRA_DIST = LICENSE README.md example.cpp\
  SFMT/SFMT-common.h SFMT/SFMT-sse2.h\
  SFMT/CHANGE-LOG.txt SFMT/FILES.txt SFMT/LICENSE.txt SFMT/README.txt\
  dSFMT/dSFMT-common.h dSFMT/dSFMT-params.h dSFMT/dSFMT-params19937.h\
