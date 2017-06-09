@@ -52,6 +52,46 @@ class sfmt19937 {
     state_type state_;
 };
 
+
+class sfmt19937_64 {
+  public:
+    typedef uint64_t result_type;
+    typedef sfmt_t state_type;
+
+    static constexpr result_type min() {return 0U;}
+    static constexpr result_type max() {return std::numeric_limits<result_type>::max();}
+    static constexpr result_type default_seed = 5489U;
+
+    // constructors
+    explicit sfmt19937_64(const result_type s=default_seed) {seed(s);}
+    explicit sfmt19937_64(const state_type& state): state_(state) {}
+    sfmt19937_64(const sfmt19937_64&) = delete;
+
+    // [0, 2^64-1]
+    result_type operator()() {
+        return sfmt_genrand_uint64(&state_);
+    }
+
+    // [0.0, 1.0)
+    double canonical() {
+        return sfmt_genrand_res53(&state_);
+    }
+
+    void seed(const result_type s) {
+        sfmt_init_gen_rand(&state_, s);
+    }
+
+    void discard(unsigned long long n) {
+        for (; n != 0ULL; --n) {(*this)();}
+    }
+
+    const state_type& getstate() const {return state_;}
+    void setstate(const state_type& state) {state_ = state;}
+
+  private:
+    state_type state_;
+};
+
 /////////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
 } // namespace wtl
 /////////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
