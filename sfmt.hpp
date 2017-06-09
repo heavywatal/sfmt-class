@@ -25,7 +25,8 @@ class sfmt19937 {
     // constructors
     explicit sfmt19937(const result_type s=default_seed) {seed(s);}
     explicit sfmt19937(const state_type& state): state_(state) {}
-    sfmt19937(const sfmt19937&) = delete;
+    sfmt19937(const sfmt19937&) = default;
+    sfmt19937(sfmt19937&&) = default;
 
     // [0, 2^32-1]
     result_type operator()() {
@@ -65,7 +66,8 @@ class sfmt19937_64 {
     // constructors
     explicit sfmt19937_64(const result_type s=default_seed) {seed(s);}
     explicit sfmt19937_64(const state_type& state): state_(state) {}
-    sfmt19937_64(const sfmt19937_64&) = delete;
+    sfmt19937_64(const sfmt19937_64&) = default;
+    sfmt19937_64(sfmt19937_64&&) = default;
 
     // [0, 2^64-1]
     result_type operator()() {
