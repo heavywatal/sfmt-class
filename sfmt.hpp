@@ -20,9 +20,10 @@ class sfmt19937 {
 
     static constexpr result_type min() {return 0U;}
     static constexpr result_type max() {return std::numeric_limits<result_type>::max();}
+    static constexpr result_type default_seed = 5489U;
 
     // constructors
-    explicit sfmt19937(const result_type s) {seed(s);}
+    explicit sfmt19937(const result_type s=default_seed) {seed(s);}
     explicit sfmt19937(const state_type& state): state_(state) {}
     sfmt19937(const sfmt19937&) = delete;
 
