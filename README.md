@@ -31,4 +31,5 @@ to get the SFMT source files and ``configure`` script
 
 C++ header `sfmt.hpp` is installed in addition to the original C headers.
 A wrapper class `wtl::sfmt19937` is compatible with `std::mt19937` and can be used in combination with `std::*_distribution` in `<random>`.
+For convenience, a static object is initialized with `std::random_device`, and its reference is provided through an inline function `sfmt()`.
 See ``example.cpp`` and try `make example`.

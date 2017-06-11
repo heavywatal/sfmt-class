@@ -12,5 +12,8 @@ int main() {
     for (size_t i=0; i<5; ++i) {
         std::cout << dist(rng) << std::endl;
     }
+
+    // pre-defined static object
+    std::cout << dist(wtl::sfmt()) << std::endl;
     return 0;
 }

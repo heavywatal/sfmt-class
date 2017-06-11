@@ -3,6 +3,7 @@
 #ifndef WTL_SFMT_HPP_
 #define WTL_SFMT_HPP_
 
+#include <random>
 #include <limits>
 
 #define HAVE_SSE2
@@ -93,6 +94,18 @@ class sfmt19937_64 {
   private:
     state_type state_;
 };
+
+/////////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
+
+inline sfmt19937& sfmt() {
+    static sfmt19937 generator(std::random_device{}());
+    return generator;
+}
+
+inline sfmt19937_64& sfmt64() {
+    static sfmt19937_64 generator(std::random_device{}());
+    return generator;
+}
 
 /////////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
 } // namespace wtl
