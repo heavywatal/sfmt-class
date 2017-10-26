@@ -14,6 +14,20 @@
 namespace wtl {
 /////////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
 
+namespace {
+    union bits64_t {
+        uint64_t as_uint64_t;
+        uint32_t as_uint32_t[2];
+        double as_double;
+    };
+
+    // Use 52 bits to make double [0.0, 1.0)
+    inline double as_canonical(uint64_t x) {
+        bits64_t bits = {(x >> 2) | 0x3ff0'0000'0000'0000};
+        return bits.as_double - 1.0;
+    }
+}
+
 class sfmt19937 {
   public:
     typedef uint32_t result_type;
@@ -36,7 +50,12 @@ class sfmt19937 {
 
     // [0.0, 1.0)
     double canonical() {
-        return sfmt_genrand_real2(&state_);
+        return std::generate_canonical<double, std::numeric_limits<double>::digits>(*this);
+    }
+    // possible implementation
+    double _canonical() {
+        bits64_t bits = {.as_uint32_t = {this->operator()(), this->operator()()}};
+        return as_canonical(bits.as_uint64_t);
     }
 
     void seed(const result_type s) {
@@ -77,7 +96,11 @@ class sfmt19937_64 {
 
     // [0.0, 1.0)
     double canonical() {
-        return sfmt_genrand_res53(&state_);
+        return std::generate_canonical<double, std::numeric_limits<double>::digits>(*this);
+    }
+    // possible implementation
+    double _canonical() {
+        return as_canonical(this->operator()());
     }
 
     void seed(const result_type s) {
