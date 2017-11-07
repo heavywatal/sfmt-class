@@ -18,13 +18,16 @@ namespace {
         uint64_t as_uint64_t;
         uint32_t as_uint32_t[2];
         double as_double;
-    };
 
-    // Use 52 bits to make double [0.0, 1.0)
-    inline double as_canonical(uint64_t x) {
-        bits64_t bits = {(x >> 2) | 0x3ff0'0000'0000'0000};
-        return bits.as_double - 1.0;
-    }
+        bits64_t(uint64_t x): as_uint64_t{x} {}
+        bits64_t(uint32_t x, uint32_t y): as_uint32_t{x, y} {}
+
+        // Use 52 bits to make double [0.0, 1.0)
+        double as_canonical() const {
+            bits64_t exponent_zero = (as_uint64_t >> 2) | 0x3ff0'0000'0000'0000;
+            return exponent_zero.as_double - 1.0;
+        }
+    };
 }
 
 class sfmt19937 {
@@ -53,8 +56,7 @@ class sfmt19937 {
     }
     // possible implementation
     double _canonical() {
-        bits64_t bits = {.as_uint32_t = {this->operator()(), this->operator()()}};
-        return as_canonical(bits.as_uint64_t);
+        return bits64_t(this->operator()(), this->operator()()).as_canonical();
     }
 
     void seed(const result_type s) {
@@ -99,7 +101,7 @@ class sfmt19937_64 {
     }
     // possible implementation
     double _canonical() {
-        return as_canonical(this->operator()());
+        return bits64_t(this->operator()()).as_canonical();
     }
 
     void seed(const result_type s) {
