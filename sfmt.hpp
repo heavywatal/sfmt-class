@@ -13,23 +13,6 @@
 namespace wtl {
 /////////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
 
-namespace {
-    union bits64_t {
-        uint64_t as_uint64_t;
-        uint32_t as_uint32_t[2];
-        double as_double;
-
-        bits64_t(uint64_t x): as_uint64_t{x} {}
-        bits64_t(uint32_t x, uint32_t y): as_uint32_t{x, y} {}
-
-        // Use 52 bits to make double [0.0, 1.0)
-        double as_canonical() const {
-            bits64_t exponent_zero = (as_uint64_t >> 2) | 0x3ff0'0000'0000'0000;
-            return exponent_zero.as_double - 1.0;
-        }
-    };
-}
-
 class sfmt19937 {
   public:
     typedef uint32_t result_type;
@@ -48,15 +31,6 @@ class sfmt19937 {
     // [0, 2^32-1]
     result_type operator()() {
         return sfmt_genrand_uint32(&state_);
-    }
-
-    // [0.0, 1.0)
-    double canonical() {
-        return std::generate_canonical<double, std::numeric_limits<double>::digits>(*this);
-    }
-    // possible implementation
-    double _canonical() {
-        return bits64_t(this->operator()(), this->operator()()).as_canonical();
     }
 
     void seed(const result_type s) {
@@ -93,15 +67,6 @@ class sfmt19937_64 {
     // [0, 2^64-1]
     result_type operator()() {
         return sfmt_genrand_uint64(&state_);
-    }
-
-    // [0.0, 1.0)
-    double canonical() {
-        return std::generate_canonical<double, std::numeric_limits<double>::digits>(*this);
-    }
-    // possible implementation
-    double _canonical() {
-        return bits64_t(this->operator()()).as_canonical();
     }
 
     void seed(const result_type s) {
