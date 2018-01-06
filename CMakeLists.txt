@@ -19,7 +19,7 @@ set_target_properties(${PROJECT_NAME}-static PROPERTIES
 )
 
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-    set(CMAKE_INSTALL_PREFIX "~/tmp/local" CACHE PATH "install prefix" FORCE)
+    set(CMAKE_INSTALL_PREFIX "~/local" CACHE PATH "install prefix" FORCE)
 endif()
 message("CMAKE_INSTALL_PREFIX: ${CMAKE_INSTALL_PREFIX}")
 
