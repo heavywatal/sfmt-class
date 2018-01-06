@@ -8,23 +8,22 @@ http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/SFMT/
 
 ### Installation
 
-Download and extract [released archive](https://github.com/heavywatal/sfmt-class/releases)
-
+The easiest way is to use [Homebrew](https://brew.sh/)/[Linuxbrew](http://linuxbrew.sh/):
 ```sh
-% ./configure --prefix=${HOME}/local
-% make
-% make install
+% brew tap heavywatal/tap
+% brew install sfmt-class --HEAD
 ```
 
-If you are building the latest development version from github,
-you need to initiate submodules and run **autotools**
-to get the SFMT source files and ``configure`` script
-
+Alternatively, you can get the source code from GitHub manually:
 ```sh
 % git clone https://github.com/heavywatal/sfmt-class.git
 % cd sfmt-class/
 % git submodule update --init
-% autoreconf -i
+% mkdir build
+% cd build/
+% cmake -DCMAKE_INSTALL_PREFIX=${HOME}/local ..
+% make
+% make install
 ```
 
 ### Usage in C++
