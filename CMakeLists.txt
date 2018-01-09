@@ -14,13 +14,16 @@ set(CMAKE_C_FLAGS "-O3 -march=native -Wall -Wextra -Wpedantic")
 
 set(source_files SFMT/SFMT.c dSFMT/dSFMT.c)
 
+message("CMAKE_INSTALL_PREFIX: ${CMAKE_INSTALL_PREFIX}")
+
+set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}")
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+
 add_library(${PROJECT_NAME} SHARED ${source_files})
 add_library(${PROJECT_NAME}-static STATIC ${source_files})
 set_target_properties(${PROJECT_NAME}-static PROPERTIES
   OUTPUT_NAME ${PROJECT_NAME}
 )
-
-message("CMAKE_INSTALL_PREFIX: ${CMAKE_INSTALL_PREFIX}")
 
 install(TARGETS ${PROJECT_NAME} ${PROJECT_NAME}-static
   EXPORT ${PROJECT_NAME}-config
