@@ -12,7 +12,7 @@ set(MEXP 19937)
 add_definitions(-DNDEBUG -DHAVE_SSE2 -DSFMT_MEXP=${MEXP} -DDSFMT_MEXP=${MEXP})
 set(CMAKE_C_FLAGS "-O3 -march=native -Wall -Wextra -Wpedantic")
 
-set(source_files SFMT/SFMT.c dSFMT/dSFMT.c)
+set(source_files SFMT/SFMT.c)
 
 message("CMAKE_INSTALL_PREFIX: ${CMAKE_INSTALL_PREFIX}")
 
@@ -34,9 +34,6 @@ install(FILES sfmt.hpp
 )
 install(FILES SFMT/SFMT.h SFMT/SFMT-params.h SFMT/SFMT-params${MEXP}.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/SFMT
-)
-install(FILES dSFMT/dSFMT.h
-  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/dSFMT
 )
 install(EXPORT ${PROJECT_NAME}-config
   DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}

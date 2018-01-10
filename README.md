@@ -1,7 +1,7 @@
 ## SFMT-class
 
 This is an unofficial wrapper of SFMT for C++.
-It can also be used as a simple installer of SFMT and dSFMT for C/C++.
+It can also be used as just a simple installer of SFMT for C/C++.
 SFMT is a new variant of Mersenne Twister (MT) introduced by Mutsuo Saito and Makoto Matsumoto.
 
 http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/SFMT/
