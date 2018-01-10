@@ -20,7 +20,7 @@ class sfmt19937 {
 
     static constexpr result_type min() {return 0U;}
     static constexpr result_type max() {return std::numeric_limits<result_type>::max();}
-    static constexpr result_type default_seed = 5489U;
+    static constexpr result_type default_seed = 1234U;
 
     // constructors
     explicit sfmt19937(const result_type s=default_seed) {seed(s);}
@@ -56,7 +56,7 @@ class sfmt19937_64 {
 
     static constexpr result_type min() {return 0U;}
     static constexpr result_type max() {return std::numeric_limits<result_type>::max();}
-    static constexpr result_type default_seed = 5489U;
+    static constexpr result_type default_seed = 4321U;
 
     // constructors
     explicit sfmt19937_64(const result_type s=default_seed) {seed(s);}
