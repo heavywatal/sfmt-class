@@ -8,10 +8,15 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 set(CMAKE_CXX_EXTENSIONS FALSE)
 
-set(MEXP 19937)
-add_definitions(-DNDEBUG -DHAVE_SSE2 -DSFMT_MEXP=${MEXP} -DDSFMT_MEXP=${MEXP})
-set(CMAKE_C_FLAGS "-O3 -march=native -Wall -Wextra -Wpedantic")
+add_definitions(-DNDEBUG)
+add_compile_options(-O3 -march=native -Wall -Wextra -Wpedantic)
 
+include(CTest)
+if(BUILD_TESTING)
+  add_subdirectory(test)  # before add_definitions()
+endif()
+
+add_definitions(-DHAVE_SSE2 -DSFMT_MEXP=19937)
 set(source_files SFMT/SFMT.c)
 
 message("CMAKE_INSTALL_PREFIX: ${CMAKE_INSTALL_PREFIX}")
