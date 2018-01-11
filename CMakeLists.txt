@@ -16,7 +16,8 @@ if(BUILD_TESTING)
   add_subdirectory(test)  # before add_definitions()
 endif()
 
-add_definitions(-DHAVE_SSE2 -DSFMT_MEXP=19937)
+set(MEXP 19937)
+add_definitions(-DHAVE_SSE2 -DSFMT_MEXP=${MEXP})
 set(source_files SFMT/SFMT.c)
 
 message("CMAKE_INSTALL_PREFIX: ${CMAKE_INSTALL_PREFIX}")
