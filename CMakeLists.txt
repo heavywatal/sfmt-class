@@ -11,6 +11,11 @@ set(CMAKE_CXX_EXTENSIONS FALSE)
 add_definitions(-DNDEBUG)
 add_compile_options(-O3 -march=native -Wall -Wextra -Wpedantic)
 
+include_directories(
+  $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}>
+  $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+)
+
 include(CTest)
 if(BUILD_TESTING)
   add_subdirectory(test)  # before add_definitions()
@@ -34,6 +39,7 @@ install(TARGETS ${PROJECT_NAME} ${PROJECT_NAME}-static
   EXPORT ${PROJECT_NAME}-config
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
 install(FILES sfmt.hpp
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
