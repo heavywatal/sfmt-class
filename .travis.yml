@@ -2,50 +2,53 @@ language: cpp
 sudo: false
 matrix:
   include:
-    - os: osx
-      osx_image: xcode9.2
-    - os: linux
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-5
-      env:
-        - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5"
-    - os: linux
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-6
-      env:
-        - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6"
-    - os: linux
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-7
-      env:
-        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
-    - os: linux
-      addons:
-        apt:
-          sources:
-            - llvm-toolchain-trusty-4.0
-          packages:
-            - clang-4.0
-      env:
-        - MATRIX_EVAL="CC=clang-4.0 && CXX=clang++-4.0"
+  - os: osx
+    osx_image: xcode9.2
+  - os: linux
+    addons:
+      apt:
+        sources:
+        - ubuntu-toolchain-r-test
+        packages:
+        - g++-5
+    env:
+    - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5"
+  - os: linux
+    addons:
+      apt:
+        sources:
+        - ubuntu-toolchain-r-test
+        packages:
+        - g++-6
+    env:
+    - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6"
+  - os: linux
+    addons:
+      apt:
+        sources:
+        - ubuntu-toolchain-r-test
+        packages:
+        - g++-7
+    env:
+    - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+  - os: linux
+    addons:
+      apt:
+        sources:
+        - llvm-toolchain-trusty-4.0
+        packages:
+        - clang-4.0
+    env:
+    - MATRIX_EVAL="CC=clang-4.0 && CXX=clang++-4.0"
 before_install:
-  - eval "${MATRIX_EVAL}"
+- eval "${MATRIX_EVAL}"
 script:
-  - mkdir build
-  - cd build
-  - cmake -DCMAKE_INSTALL_PREFIX=${HOME}/local ..
-  - cmake --build .
-  - cmake --build . --target install
-  - ctest
+- mkdir build
+- cd build
+- cmake -DCMAKE_INSTALL_PREFIX=${HOME}/local ..
+- cmake --build .
+- cmake --build . --target install
+- ctest -V
+notifications:
+  slack:
+    secure: jlPv6IWAst22uykYV2pcrDzAsSwdb+1iE4qrXtdH2X6TtjVWCrGVR3cV84f4KdYO9kvuzmLuDIF9CX6z5tKRivGW6QCuHLvaxE3QEafMLsklgG/YV38FKclS9Cr1TnavzVMqLo8a2V8ZeEcl1QsgJ/amgyhm/J9wxLbRGscOFBEc2eHaDhSNytsz7WI5WNrdp58/JTJBIeVYBR81RYxjqy1unkF4vURAGTugtf1rE35shho15JuSFsR2rh9pEjZyW9hpvi/hY1YxW2qZa16mpP1LYuqo1b3lsJTCnM8zSSaNcEF86+NoW95tuop5VyDAKnKGJzPUrw2WjLGB9GGdYNIiACXL7aNFln3uZLaTyIdBXaBrs2RXBZ7eIXsUIMMlW7ZZgitTUxJcUgdrdvEn/6rg0bsPVAcsbbv10ndZuLAgK9r0OB/XGEOcSEY7VHhM0uFNPicEZ7M1833lI5mjzmjWTl+PYp0iuYzoQe+vxZWWPliAQMExdcA5g7ZxCUBTPvWb2uYGznXQepvAF7FE5xBuX0pdN7XY/oU48iLAzeHjkz+E/kI6Rv4/+SO54svuq8gGuznvXjUevsVVQ7Fx9fR+akmkYVpcBn6ojRwSwaNfviTG7C0D69CHDyJrfx5GzYzpby7fFfp0T5ATbBSlxJhuCtO1RA1vgWPASpMWfnQ=
