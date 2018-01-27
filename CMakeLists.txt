@@ -11,11 +11,6 @@ set(CMAKE_CXX_EXTENSIONS FALSE)
 add_definitions(-DNDEBUG)
 add_compile_options(-O3 -march=native -Wall -Wextra -Wpedantic)
 
-include_directories(
-  $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}>
-  $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
-)
-
 include(CTest)
 if(BUILD_TESTING)
   add_subdirectory(test)  # before add_definitions()
@@ -33,6 +28,9 @@ endif()
 set(CMAKE_INSTALL_NAME_DIR ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR})
 
 add_library(${PROJECT_NAME} SHARED ${source_files})
+target_include_directories(${PROJECT_NAME}
+  INTERFACE $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}>
+)
 add_library(${PROJECT_NAME}-static STATIC ${source_files})
 set_target_properties(${PROJECT_NAME}-static PROPERTIES
   OUTPUT_NAME ${PROJECT_NAME}

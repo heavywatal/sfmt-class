@@ -1,7 +1,7 @@
+#include <sfmt.hpp>
+
 #include <iostream>
 #include <random>
-
-#include <sfmt.hpp>
 
 void std_mt() {
     std::random_device seeder;
