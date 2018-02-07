@@ -27,11 +27,12 @@ endif()
 
 set(CMAKE_INSTALL_NAME_DIR ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR})
 
-add_library(${PROJECT_NAME} SHARED ${source_files})
+add_library(obj OBJECT ${source_files})
+add_library(${PROJECT_NAME} SHARED $<TARGET_OBJECTS:obj>)
 target_include_directories(${PROJECT_NAME}
   INTERFACE $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}>
 )
-add_library(${PROJECT_NAME}-static STATIC ${source_files})
+add_library(${PROJECT_NAME}-static STATIC $<TARGET_OBJECTS:obj>)
 set_target_properties(${PROJECT_NAME}-static PROPERTIES
   OUTPUT_NAME ${PROJECT_NAME}
 )
