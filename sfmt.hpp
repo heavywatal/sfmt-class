@@ -70,7 +70,7 @@ class sfmt19937_64 {
     }
 
     void seed(const result_type s) {
-        sfmt_init_gen_rand(&state_, s);
+        sfmt_init_gen_rand(&state_, static_cast<uint32_t>(s));
     }
 
     void discard(unsigned long long n) {
