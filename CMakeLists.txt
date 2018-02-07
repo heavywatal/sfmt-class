@@ -9,7 +9,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 set(CMAKE_CXX_EXTENSIONS FALSE)
 
 add_definitions(-DNDEBUG)
-add_compile_options(-O3 -march=native -Wall -Wextra -Wpedantic)
+add_compile_options(-fPIC -O3 -march=native -Wall -Wextra -Wpedantic)
 
 include(CTest)
 if(BUILD_TESTING)
