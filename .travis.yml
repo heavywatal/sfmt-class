@@ -25,6 +25,9 @@ script:
 - cmake --build .
 - cmake --build . --target install
 - ctest -V
+branches:
+  except:
+  - /^v?\d+\.\d+/
 notifications:
   email: false
   slack:
