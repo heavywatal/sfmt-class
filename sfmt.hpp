@@ -15,8 +15,8 @@ namespace wtl {
 
 class sfmt19937 {
   public:
-    typedef uint32_t result_type;
-    typedef sfmt_t state_type;
+    using result_type = uint32_t;
+    using state_type = sfmt_t;
 
     static constexpr result_type min() {return 0U;}
     static constexpr result_type max() {return std::numeric_limits<result_type>::max();}
@@ -51,8 +51,8 @@ class sfmt19937 {
 
 class sfmt19937_64 {
   public:
-    typedef uint64_t result_type;
-    typedef sfmt_t state_type;
+    using result_type = uint64_t;
+    using state_type = sfmt_t;
 
     static constexpr result_type min() {return 0U;}
     static constexpr result_type max() {return std::numeric_limits<result_type>::max();}
