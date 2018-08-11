@@ -59,7 +59,8 @@ class sfmt19937_64 {
     static constexpr result_type default_seed = 4321U;
 
     // constructors
-    explicit sfmt19937_64(result_type s=default_seed) {seed(s);}
+    explicit sfmt19937_64(uint32_t s=static_cast<uint32_t>(default_seed)) {seed(s);}
+    explicit sfmt19937_64(result_type s) {seed(s);}
     explicit sfmt19937_64(const state_type& state): state_(state) {}
     sfmt19937_64(const sfmt19937_64&) = default;
     sfmt19937_64(sfmt19937_64&&) = default;
@@ -69,8 +70,12 @@ class sfmt19937_64 {
         return sfmt_genrand_uint64(&state_);
     }
 
+    void seed(uint32_t s) {
+        sfmt_init_gen_rand(&state_, s);
+    }
+
     void seed(result_type s) {
-        sfmt_init_gen_rand(&state_, static_cast<uint32_t>(s));
+        sfmt_init_by_array(&state_, reinterpret_cast<uint32_t*>(&s), 2);
     }
 
     void discard(unsigned long long n) {
