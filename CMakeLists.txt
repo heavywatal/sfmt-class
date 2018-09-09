@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.1)
-project(sfmt C CXX)
+project(sfmt
+  VERSION 0.5.0
+  LANGUAGES C CXX)
 
 include(GNUInstallDirs)
 set(CMAKE_VERBOSE_MAKEFILE TRUE)
@@ -8,8 +10,12 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 set(CMAKE_CXX_EXTENSIONS FALSE)
 
-add_definitions(-DNDEBUG)
-add_compile_options(-fPIC -O3 -march=native -Wall -Wextra -Wpedantic)
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Release)
+endif()
+message(STATUS "CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
+add_compile_options(-march=native -Wall -Wextra -Wpedantic)
+set(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
 
 include(CTest)
 if(BUILD_TESTING)
@@ -37,6 +43,12 @@ set_target_properties(${PROJECT_NAME}-static PROPERTIES
   OUTPUT_NAME ${PROJECT_NAME}
 )
 
+set(CONFIG_VERSION_FILE ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake)
+include(CMakePackageConfigHelpers)
+write_basic_package_version_file(
+  ${CONFIG_VERSION_FILE} COMPATIBILITY AnyNewerVersion
+)
+
 install(TARGETS ${PROJECT_NAME} ${PROJECT_NAME}-static
   EXPORT ${PROJECT_NAME}-config
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
@@ -50,5 +62,8 @@ install(FILES SFMT/SFMT.h SFMT/SFMT-params.h SFMT/SFMT-params${MEXP}.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/SFMT
 )
 install(EXPORT ${PROJECT_NAME}-config
+  DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}
+)
+install(FILES ${CONFIG_VERSION_FILE}
   DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}
 )
