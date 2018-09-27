@@ -1,4 +1,4 @@
-link_libraries(${PROJECT_NAME})
+link_libraries(wtl::${PROJECT_NAME})
 
 add_executable(test-output output.cpp)
 add_test(NAME output

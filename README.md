@@ -27,6 +27,13 @@ Alternatively, you can get the source code from GitHub manually:
 % make install
 ```
 
+Header files are installed to `${CMAKE_INSTALL_PREFIX}/include/`.
+This library can be imported from other CMake projects:
+```cmake
+find_package(sfmt)
+target_link_libraries(${YOUR_TARGET} PRIVATE wtl::sfmt)
+```
+
 ### Usage in C++
 
 C++ header `sfmt.hpp` is installed in addition to the original C headers.
