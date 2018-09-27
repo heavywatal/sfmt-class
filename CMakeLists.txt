@@ -6,34 +6,31 @@ project(sfmt
 include(GNUInstallDirs)
 set(CMAKE_VERBOSE_MAKEFILE TRUE)
 
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
-set(CMAKE_CXX_EXTENSIONS FALSE)
-
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release)
 endif()
 message(STATUS "CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
-add_compile_options(-march=native -Wall -Wextra -Wpedantic)
-set(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
+set(CMAKE_C_FLAGS_DEV "-O2 -g")
+set(CMAKE_CXX_FLAGS_DEV "-O2 -g")
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
+set(CMAKE_CXX_EXTENSIONS FALSE)
 
-include(CTest)
-if(BUILD_TESTING)
-  add_subdirectory(test)  # before add_definitions()
-endif()
-
-set(MEXP 19937)
-add_definitions(-DHAVE_SSE2 -DSFMT_MEXP=${MEXP})
-set(source_files SFMT/SFMT.c)
-
-message("CMAKE_INSTALL_PREFIX: ${CMAKE_INSTALL_PREFIX}")
+message(STATUS "CMAKE_INSTALL_PREFIX: ${CMAKE_INSTALL_PREFIX}")
 if(${CMAKE_INSTALL_PREFIX} MATCHES linuxbrew)
   set(CMAKE_INSTALL_LIBDIR lib)
 endif()
 
-set(CMAKE_INSTALL_NAME_DIR ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR})
+set(MEXP 19937)
+add_library(obj OBJECT SFMT/SFMT.c)
+target_compile_options(obj PRIVATE
+  -march=native -Wall -Wextra -Wpedantic
+)
+target_compile_definitions(obj PRIVATE
+  -DHAVE_SSE2 -DSFMT_MEXP=${MEXP}
+)
+set_target_properties(obj PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
 
-add_library(obj OBJECT ${source_files})
 add_library(${PROJECT_NAME} SHARED $<TARGET_OBJECTS:obj>)
 target_include_directories(${PROJECT_NAME}
   INTERFACE $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}>
@@ -67,3 +64,8 @@ install(EXPORT ${PROJECT_NAME}-config
 install(FILES ${CONFIG_VERSION_FILE}
   DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}
 )
+
+include(CTest)
+if(BUILD_TESTING)
+  add_subdirectory(test)
+endif()
