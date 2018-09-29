@@ -21,27 +21,24 @@ if(${CMAKE_INSTALL_PREFIX} MATCHES linuxbrew)
 endif()
 
 set(MEXP 19937)
-add_library(obj OBJECT SFMT/SFMT.c)
-target_compile_options(obj PRIVATE
+option(BUILD_SHARED_LIBS "Build shared libraries" ON)
+add_library(${PROJECT_NAME} SFMT/SFMT.c)
+add_library(wtl::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
+target_compile_options(${PROJECT_NAME} PRIVATE
   -march=native -Wall -Wextra -Wpedantic
 )
-target_compile_definitions(obj PRIVATE
+target_compile_definitions(${PROJECT_NAME} PRIVATE
   -DHAVE_SSE2 -DSFMT_MEXP=${MEXP}
 )
-set_target_properties(obj PROPERTIES POSITION_INDEPENDENT_CODE ON)
-
-add_library(${PROJECT_NAME} SHARED $<TARGET_OBJECTS:obj>)
-add_library(wtl::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 target_include_directories(${PROJECT_NAME} INTERFACE
   $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}>
   $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
-add_library(${PROJECT_NAME}-static STATIC $<TARGET_OBJECTS:obj>)
-set_target_properties(${PROJECT_NAME}-static PROPERTIES
-  OUTPUT_NAME ${PROJECT_NAME}
+set_target_properties(${PROJECT_NAME} PROPERTIES
+  POSITION_INDEPENDENT_CODE ON
 )
 
-install(TARGETS ${PROJECT_NAME} ${PROJECT_NAME}-static
+install(TARGETS ${PROJECT_NAME}
   EXPORT ${PROJECT_NAME}-config
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
