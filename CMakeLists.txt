@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.4)
 project(sfmt
   VERSION 0.7.0
   LANGUAGES C CXX)
@@ -36,6 +36,7 @@ target_include_directories(${PROJECT_NAME} INTERFACE
 )
 set_target_properties(${PROJECT_NAME} PROPERTIES
   POSITION_INDEPENDENT_CODE ON
+  WINDOWS_EXPORT_ALL_SYMBOLS ON
 )
 
 install(TARGETS ${PROJECT_NAME}
