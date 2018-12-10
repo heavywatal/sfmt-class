@@ -25,7 +25,7 @@ option(BUILD_SHARED_LIBS "Build shared libraries" ON)
 add_library(${PROJECT_NAME} SFMT/SFMT.c)
 add_library(wtl::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 target_compile_options(${PROJECT_NAME} PRIVATE
-  -march=native -Wall -Wextra -Wpedantic
+  -march=native -Wall -Wextra -pedantic
 )
 target_compile_definitions(${PROJECT_NAME} PRIVATE
   -DHAVE_SSE2 -DSFMT_MEXP=${MEXP}
