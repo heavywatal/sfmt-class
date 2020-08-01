@@ -1,6 +1,6 @@
 ## SFMT-class
 
-[![Build Status](https://travis-ci.org/heavywatal/sfmt-class.svg?branch=master)](https://travis-ci.org/heavywatal/sfmt-class)
+[![Build status](https://github.com/heavywatal/sfmt-class/workflows/build/badge.svg)](https://github.com/heavywatal/sfmt-class/actions)
 
 This is an unofficial wrapper of SFMT for C++.
 It can also be used as just a simple installer of SFMT for C/C++.
