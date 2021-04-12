@@ -20,11 +20,9 @@ Alternatively, you can get the source code from GitHub manually:
 % git clone https://github.com/heavywatal/sfmt-class.git
 % cd sfmt-class/
 % git submodule update --init
-% mkdir build
-% cd build/
-% cmake -DCMAKE_INSTALL_PREFIX=${HOME}/local ..
-% make
-% make install
+% cmake -S . -B build -DCMAKE_INSTALL_PREFIX=${HOME}/local
+% cmake --build build --parallel 2
+% cmake --install build
 ```
 
 Header files are installed to `${CMAKE_INSTALL_PREFIX}/include/`.
