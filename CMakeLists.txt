@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.13)
 project(sfmt
-  VERSION 0.7.3
+  VERSION 0.7.4
   LANGUAGES C CXX)
 
 cmake_policy(SET CMP0076 NEW)
