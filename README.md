@@ -21,7 +21,7 @@ Alternatively, you can get the source code from GitHub manually:
 % cd sfmt-class/
 % git submodule update --init
 % cmake -S . -B build -DCMAKE_INSTALL_PREFIX=${HOME}/local
-% cmake --build build --parallel 2
+% cmake --build build -j 2
 % cmake --install build
 ```
 

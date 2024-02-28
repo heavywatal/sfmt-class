@@ -1,25 +1,48 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.13)
 project(sfmt
   VERSION 0.7.3
   LANGUAGES C CXX)
 
-include(GNUInstallDirs)
+cmake_policy(SET CMP0076 NEW)
 set(CMAKE_VERBOSE_MAKEFILE ON)
-
-if(NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE Release)
-endif()
-message(STATUS "CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
-set(CMAKE_C_FLAGS_DEV "-O2 -g")
-set(CMAKE_CXX_FLAGS_DEV "-O2 -g")
-
+include(CMakePrintHelpers)
+include(FetchContent)
+include(GNUInstallDirs)
+cmake_print_variables(CMAKE_INSTALL_PREFIX)
 if(${CMAKE_INSTALL_PREFIX} MATCHES linuxbrew)
   set(CMAKE_INSTALL_LIBDIR lib)
 endif()
 
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Release)
+endif()
+cmake_print_variables(CMAKE_BUILD_TYPE)
+set(CMAKE_C_FLAGS_DEV "-O2 -g")
+set(CMAKE_CXX_FLAGS_DEV "-O2 -g")
+
+function(import_env variable)
+  if(DEFINED ENV{${variable}})
+    set(${variable} $ENV{${variable}} PARENT_SCOPE)
+  endif()
+endfunction()
+
+import_env("FETCHCONTENT_SOURCE_DIR_CSFMT")
+cmake_print_variables(FETCHCONTENT_SOURCE_DIR_CSFMT)
+set(FETCHCONTENT_QUIET OFF)
+FetchContent_Declare(
+  CSFMT
+  GIT_REPOSITORY https://github.com/heavywatal/SFMT.git
+  GIT_TAG init64
+  GIT_SHALLOW ON
+  SOURCE_DIR _deps/SFMT
+)
+FetchContent_Populate(CSFMT)
+cmake_path(GET csfmt_SOURCE_DIR PARENT_PATH csfmt_SOURCE_PARENT)
+cmake_print_variables(csfmt_SOURCE_DIR csfmt_SOURCE_PARENT)
+
 set(MEXP 19937)
 option(BUILD_SHARED_LIBS "Build shared libraries" ON)
-add_library(${PROJECT_NAME} SFMT/SFMT.c)
+add_library(${PROJECT_NAME} ${csfmt_SOURCE_DIR}/SFMT.c)
 add_library(wtl::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 target_compile_options(${PROJECT_NAME} PRIVATE
   -march=native -Wall -Wextra -pedantic
@@ -29,9 +52,10 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE
 )
 target_include_directories(${PROJECT_NAME} INTERFACE
   $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}>
+  $<BUILD_INTERFACE:${csfmt_SOURCE_PARENT}>
   $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
-target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_11)
+target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 set_target_properties(${PROJECT_NAME} PROPERTIES
   CXX_STANDARD_REQUIRED ON
   CXX_EXTENSIONS OFF
@@ -47,7 +71,10 @@ install(TARGETS ${PROJECT_NAME}
 install(FILES sfmt.hpp
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
-install(FILES SFMT/SFMT.h SFMT/SFMT-params.h SFMT/SFMT-params${MEXP}.h
+install(FILES
+  ${csfmt_SOURCE_DIR}/SFMT.h
+  ${csfmt_SOURCE_DIR}/SFMT-params.h
+  ${csfmt_SOURCE_DIR}/SFMT-params${MEXP}.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/SFMT
 )
 install(EXPORT ${PROJECT_NAME}-config

@@ -15,8 +15,6 @@ jobs:
         os: [macOS-latest, ubuntu-latest]
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: true
       - name: cmake
         run: cmake -S . -B build -DCMAKE_INSTALL_PREFIX=${HOME}/local
       - name: build

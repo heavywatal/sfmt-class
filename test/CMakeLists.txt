@@ -1,11 +1,11 @@
 link_libraries(wtl::${PROJECT_NAME})
 
 configure_file(
-  ${PROJECT_SOURCE_DIR}/SFMT/SFMT.19937.out.txt
+  ${csfmt_SOURCE_DIR}/SFMT.19937.out.txt
   ${PROJECT_BINARY_DIR}/SFMT/SFMT.19937.out.txt COPYONLY
 )
 configure_file(
-  ${PROJECT_SOURCE_DIR}/SFMT/SFMT.19937.64.out.txt
+  ${csfmt_SOURCE_DIR}/SFMT.19937.64.out.txt
   ${PROJECT_BINARY_DIR}/SFMT/SFMT.19937.64.out.txt COPYONLY
 )
 
