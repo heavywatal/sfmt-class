@@ -12,17 +12,16 @@ http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/SFMT/
 
 The easiest way is to use [Homebrew](https://brew.sh/):
 ```sh
-% brew install heavywatal/tap/sfmt-class
+brew install heavywatal/tap/sfmt-class
 ```
 
 Alternatively, you can get the source code from GitHub manually:
 ```sh
-% git clone https://github.com/heavywatal/sfmt-class.git
-% cd sfmt-class/
-% git submodule update --init
-% cmake -S . -B build -DCMAKE_INSTALL_PREFIX=${HOME}/local
-% cmake --build build -j 2
-% cmake --install build
+git clone https://github.com/heavywatal/sfmt-class.git
+cd sfmt-class/
+cmake -S . -B build -DCMAKE_INSTALL_PREFIX=${HOME}/local
+cmake --build build -j2
+cmake --install build
 ```
 
 Header files are installed to `${CMAKE_INSTALL_PREFIX}/include/`.
