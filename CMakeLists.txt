@@ -45,10 +45,14 @@ option(BUILD_SHARED_LIBS "Build shared libraries" ON)
 add_library(${PROJECT_NAME} ${csfmt_SOURCE_DIR}/SFMT.c)
 add_library(wtl::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 target_compile_options(${PROJECT_NAME} PRIVATE
-  -march=native -Wall -Wextra -pedantic
+  -Wall -Wextra -pedantic
+  $<$<STREQUAL:${CMAKE_SYSTEM_PROCESSOR},x86_64>:-march=native>
+  $<$<STREQUAL:${CMAKE_SYSTEM_PROCESSOR},arm64>:-march=armv8.3-a+sha3>
 )
-target_compile_definitions(${PROJECT_NAME} PRIVATE
-  -DHAVE_SSE2 -DSFMT_MEXP=${MEXP}
+target_compile_definitions(${PROJECT_NAME} PUBLIC
+  -DSFMT_MEXP=${MEXP}
+  $<$<STREQUAL:${CMAKE_SYSTEM_PROCESSOR},x86_64>:-DHAVE_SSE2>
+  $<$<STREQUAL:${CMAKE_SYSTEM_PROCESSOR},arm64>:-DHAVE_NEON -DHAVE_SHA3>
 )
 target_include_directories(${PROJECT_NAME} INTERFACE
   $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}>

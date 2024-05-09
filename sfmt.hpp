@@ -5,8 +5,6 @@
 #include <random>
 #include <limits>
 
-#define HAVE_SSE2
-#define SFMT_MEXP 19937
 #include "SFMT/SFMT.h"
 
 /////////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
