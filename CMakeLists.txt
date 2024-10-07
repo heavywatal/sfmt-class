@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.15)
 project(sfmt
   VERSION 0.7.5
   LANGUAGES C CXX)
@@ -37,8 +37,7 @@ FetchContent_Declare(
   SOURCE_DIR _deps/SFMT
 )
 FetchContent_Populate(CSFMT)
-cmake_path(GET csfmt_SOURCE_DIR PARENT_PATH csfmt_SOURCE_PARENT)
-cmake_print_variables(csfmt_SOURCE_DIR csfmt_SOURCE_PARENT)
+cmake_print_variables(csfmt_SOURCE_DIR)
 
 set(MEXP 19937)
 option(BUILD_SHARED_LIBS "Build shared libraries" ON)
@@ -56,7 +55,7 @@ target_compile_definitions(${PROJECT_NAME} PUBLIC
 )
 target_include_directories(${PROJECT_NAME} INTERFACE
   $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}>
-  $<BUILD_INTERFACE:${csfmt_SOURCE_PARENT}>
+  $<BUILD_INTERFACE:${csfmt_SOURCE_DIR}/..>
   $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
