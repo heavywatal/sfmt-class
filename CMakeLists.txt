@@ -65,8 +65,6 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 
 install(TARGETS ${PROJECT_NAME}
   EXPORT ${PROJECT_NAME}-config
-  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )
 install(FILES sfmt.hpp
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
@@ -77,18 +75,20 @@ install(FILES
   ${csfmt_SOURCE_DIR}/SFMT-params${MEXP}.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/SFMT
 )
+
+set(config_destination ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME})
 install(EXPORT ${PROJECT_NAME}-config
-  DESTINATION ${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME}
+  DESTINATION ${config_destination}
   NAMESPACE wtl::
 )
 
-set(VERSION_CONFIG ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake)
+set(version_file ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake)
 include(CMakePackageConfigHelpers)
-write_basic_package_version_file(
-  ${VERSION_CONFIG} COMPATIBILITY AnyNewerVersion
+write_basic_package_version_file(${version_file}
+  COMPATIBILITY AnyNewerVersion
 )
-install(FILES ${VERSION_CONFIG}
-  DESTINATION ${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME}
+install(FILES ${version_file}
+  DESTINATION ${config_destination}
 )
 
 include(CTest)
