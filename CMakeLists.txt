@@ -3,7 +3,7 @@ project(sfmt
   VERSION 0.7.5
   LANGUAGES C CXX)
 
-cmake_policy(SET CMP0076 NEW)
+cmake_policy(SET CMP0169 OLD) # 3.28
 set(CMAKE_VERBOSE_MAKEFILE ON)
 include(CMakePrintHelpers)
 include(FetchContent)
@@ -33,10 +33,24 @@ FetchContent_Declare(
   GIT_SHALLOW ON
   SOURCE_DIR _deps/SFMT
 )
-FetchContent_Populate(CSFMT)
+FetchContent_GetProperties(CSFMT)
+if(NOT csfmt_POPULATED)
+  FetchContent_Populate(CSFMT)
+endif()
 cmake_print_variables(csfmt_SOURCE_DIR)
 
 set(MEXP 19937)
+set(csfmt_srcs
+  ${csfmt_SOURCE_DIR}/SFMT.h
+  ${csfmt_SOURCE_DIR}/SFMT-params.h
+  ${csfmt_SOURCE_DIR}/SFMT-params${MEXP}.h
+)
+file(MAKE_DIRECTORY ${PROJECT_SOURCE_DIR}/include/SFMT)
+foreach(src IN LISTS csfmt_srcs)
+  cmake_print_variables(src)
+  configure_file(${src} ${PROJECT_SOURCE_DIR}/include/SFMT COPYONLY)
+endforeach()
+
 option(BUILD_SHARED_LIBS "Build shared libraries" ON)
 add_library(${PROJECT_NAME} ${csfmt_SOURCE_DIR}/SFMT.c)
 add_library(wtl::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
@@ -51,13 +65,11 @@ target_compile_definitions(${PROJECT_NAME} PUBLIC
   $<$<STREQUAL:${CMAKE_SYSTEM_PROCESSOR},arm64>:-DHAVE_NEON -DHAVE_SHA3>
 )
 target_include_directories(${PROJECT_NAME} INTERFACE
-  $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}>
-  $<BUILD_INTERFACE:${csfmt_SOURCE_DIR}/..>
+  $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 set_target_properties(${PROJECT_NAME} PROPERTIES
-  CXX_STANDARD_REQUIRED ON
   CXX_EXTENSIONS OFF
   POSITION_INDEPENDENT_CODE ON
   WINDOWS_EXPORT_ALL_SYMBOLS ON
@@ -66,14 +78,8 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 install(TARGETS ${PROJECT_NAME}
   EXPORT ${PROJECT_NAME}-config
 )
-install(FILES sfmt.hpp
+install(DIRECTORY include/
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-)
-install(FILES
-  ${csfmt_SOURCE_DIR}/SFMT.h
-  ${csfmt_SOURCE_DIR}/SFMT-params.h
-  ${csfmt_SOURCE_DIR}/SFMT-params${MEXP}.h
-  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/SFMT
 )
 
 set(config_destination ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME})
