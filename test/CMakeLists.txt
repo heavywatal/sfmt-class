@@ -9,7 +9,7 @@ configure_file(
 
 file(GLOB srcfiles *.cpp)
 foreach(src IN LISTS srcfiles)
-  get_filename_component(name_we ${src} NAME_WE)
+  cmake_path(GET src STEM name_we)
   add_executable(test-${name_we} ${src})
   target_link_libraries(test-${name_we} wtl::${PROJECT_NAME})
   add_test(NAME ${name_we}

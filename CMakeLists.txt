@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.21)
 project(sfmt
   VERSION 0.7.6
   LANGUAGES C CXX)
@@ -57,7 +57,7 @@ add_library(wtl::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 target_compile_options(${PROJECT_NAME} PRIVATE
   -Wall -Wextra -pedantic
   $<$<STREQUAL:${CMAKE_SYSTEM_PROCESSOR},x86_64>:-march=native>
-  $<$<STREQUAL:${CMAKE_SYSTEM_PROCESSOR},arm64>:-march=armv8.3-a+sha3>
+  $<$<STREQUAL:${CMAKE_SYSTEM_PROCESSOR},arm64>:-march=armv8.4-a+sha3>
 )
 target_compile_definitions(${PROJECT_NAME} PUBLIC
   -DSFMT_MEXP=${MEXP}
@@ -98,6 +98,6 @@ install(FILES ${version_file}
 )
 
 include(CTest)
-if(BUILD_TESTING AND ${CMAKE_SOURCE_DIR} STREQUAL ${PROJECT_SOURCE_DIR})
+if(BUILD_TESTING AND PROJECT_IS_TOP_LEVEL)
   add_subdirectory(test)
 endif()
